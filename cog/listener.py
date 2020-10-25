@@ -6,7 +6,7 @@ import asyncio, os
 from collections import defaultdict
 from copy import copy
 
-import discord, db_guild_interface
+import discord, db_guild_interface, db_user_interface
 from discord.ext import commands, tasks
 from tinydb import Query
 from utility import make_simple_embed, timer
@@ -104,6 +104,7 @@ class Listener(customs.cog.Cog):
                             await touch.delete()
 
                             # Write back to DB the changed counter
+                            db_user_interface.modify_exp(self.bot.db_user, payload.member.id, 25)
                             db_guild_interface.write(self.bot.db_guild, payload.guild_id, guild_conf)
                     
                     Listener._counter_lock_ = False

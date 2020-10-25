@@ -11,17 +11,6 @@ class Compensation(customs.cog.Cog):
     # a
     _users_compensated = list()
 
-    def __init__(self, bot):
-        super().__init__(bot)
-        if self._first_load_:
-            db_user_interface.reset_exp_factor_all(self.bot.db_user)
-
-
-    def cog_unload(self):
-        Compensation._first_load_ = False
-        super().cog_unload()
-
-
     @commands.command()
     @commands.is_owner()
     async def compensate(self, ctx, frogs: int, reason: str):
@@ -44,11 +33,6 @@ class Compensation(customs.cog.Cog):
         Compensation._users_compensated.append(ctx.message.author)
         db_user_interface.modify_frog(self.bot.db_user, ctx.author.id, Compensation.amount)
         await ctx.send(f'You have recieved `{Compensation.amount}` frogs because `{Compensation.reason}`')
-
-
-    @commands.group()
-    async def code(self, ctx):
-        await ctx.send("42-42-526")
 
 
 def setup(bot):

@@ -16,6 +16,9 @@ class Owner(customs.cog.Cog):
     '''
     These are commands meant to be ran only by the owner.
     '''
+    react_emoji = "<cirnoFrog:752291209535291453>"
+
+
     async def cog_after_invoke(self, ctx):
         # await ctx.message.add_reaction('👍')
         # await ctx.message.delete(delay=3)
@@ -196,7 +199,7 @@ class Owner(customs.cog.Cog):
                 embed.set_thumbnail(url=str(emoji.url))
                 await ctx.send(f'**`:{emoji.name}:`**', embed=embed)
                 await asyncio.sleep(1)
-        
+
         await ctx.message.delete()
 
 
@@ -274,6 +277,7 @@ class Owner(customs.cog.Cog):
 
         msg = await ctx.send(embed=embed)
 
+        print(counter_settings['emoji'])
         counter_settings['message'] = msg.id
         counter_settings['channel'] = ctx.channel.id
         counter_settings['op'] = True
@@ -298,6 +302,7 @@ class Owner(customs.cog.Cog):
         await msg.remove_reaction(counter_settings['emoji'], ctx.guild.me)
         await msg.add_reaction(emo)
         
+        print(str(emo))
         counter_settings['emoji'] = str(emo)
         db_guild_interface.write(self.bot.db_guild, ctx.guild.id, guild_conf)
 

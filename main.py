@@ -10,8 +10,9 @@ from utility import make_simple_embed
 from secret import TOKEN
 from dev import DEV_MODE
 
+# The owner id = user id
 bot = commands.Bot(command_prefix='d!' if DEV_MODE else 'c!', owner_id = 92664421553307648)
-
+# bot = commands.Bot(command_prefix='d!' if DEV_MODE else 'c!', owner_id = 163867442299273217)
 
 @bot.event
 async def on_ready():
